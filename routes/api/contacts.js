@@ -4,7 +4,7 @@ const router = express.Router();
 const { contacts: ctrl } = require("../../controllers");
 
 const { validation, ctrlWrapper } = require("../../middlewares");
-const schema = require("../../models/contacts");
+const schema = require("../../models/joishemas");
 
 router.get("/", ctrlWrapper(ctrl.getAllContacts));
 router.get("/:contactId", ctrlWrapper(ctrl.getContactById));
