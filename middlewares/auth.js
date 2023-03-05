@@ -8,7 +8,7 @@ const authMiddleware = async (req, res, next) => {
   const [bearer, token] = authorization.split(" ");
 
   try {
-    if (bearer !== "Bearer") {
+    if (bearer !== "Bearer" || !token) {
       return next(new Unauthorized("Not authorized!"));
     }
 
@@ -20,6 +20,9 @@ const authMiddleware = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
+    if(error.message = "Invalid signature"){
+      error.status = 401;
+    }
     next(error);
   }
 };

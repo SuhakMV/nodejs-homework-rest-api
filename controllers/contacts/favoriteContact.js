@@ -4,11 +4,12 @@ const NotFound = require("http-errors");
 const favoriteContact = async (req, res) => {
   const { contactId } = req.params;
   const { favorite } = req.body;
+  const { _id } = req.user;
   const result = await Contact.findByIdAndUpdate(
     contactId,
-    { favorite },
+    {owner: _id, favorite},
     {
-      new: true,
+      new: true
     }
   );
   if (!result) {
