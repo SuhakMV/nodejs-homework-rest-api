@@ -14,21 +14,21 @@ router.get("/", authMiddleware, ctrlWrapper(ctrl.getAllContacts));
 router.get("/:contactId", authMiddleware, ctrlWrapper(ctrl.getContactById));
 router.post(
   "/",
-  validation(schema.addContactSchema),
   authMiddleware,
+  validation(schema.addContactSchema),
   ctrlWrapper(ctrl.addContacts)
 );
 router.delete("/:contactId", authMiddleware, ctrlWrapper(ctrl.deleteById));
 router.put(
   "/:contactId",
-  validation(schema.addContactSchema),
   authMiddleware,
+  validation(schema.addContactSchema),
   ctrlWrapper(ctrl.updateContact)
 );
 router.patch(
   "/:contactId/favorite",
-  
-  validation(schema.favoriteStatusSchema), authMiddleware,
+  authMiddleware,
+  validation(schema.favoriteStatusSchema),
   ctrlWrapper(ctrl.favoriteStatusContact)
 );
 

@@ -4,9 +4,9 @@ const NotFound = require("http-errors");
 const updateContact = async (req, res) => {
   const { _id } = req.user;
   const { contactId } = req.params;
-  const result = await Contact.findByIdAndUpdate(
-    contactId,
-    { owner: _id, ...req.body },
+  const result = await Contact.findOneAndUpdate(
+    { _id: contactId, owner: _id },
+    req.body,
     { new: true }
   );
   console.log(result);
