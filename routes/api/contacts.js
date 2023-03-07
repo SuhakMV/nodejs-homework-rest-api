@@ -3,24 +3,31 @@ const router = express.Router();
 
 const { contacts: ctrl } = require("../../controllers");
 
-const { validation, ctrlWrapper } = require("../../middlewares");
-const schema = require("../../models/contacts");
+const {
+  validation,
+  ctrlWrapper,
+  authMiddleware,
+} = require("../../middlewares");
+const schema = require("../../models/joishemas");
 
-router.get("/", ctrlWrapper(ctrl.getAllContacts));
-router.get("/:contactId", ctrlWrapper(ctrl.getContactById));
+router.get("/", authMiddleware, ctrlWrapper(ctrl.getAllContacts));
+router.get("/:contactId", authMiddleware, ctrlWrapper(ctrl.getContactById));
 router.post(
   "/",
+  authMiddleware,
   validation(schema.addContactSchema),
   ctrlWrapper(ctrl.addContacts)
 );
-router.delete("/:contactId", ctrlWrapper(ctrl.deleteById));
+router.delete("/:contactId", authMiddleware, ctrlWrapper(ctrl.deleteById));
 router.put(
   "/:contactId",
-  validation(schema.updateContactSchema),
+  authMiddleware,
+  validation(schema.addContactSchema),
   ctrlWrapper(ctrl.updateContact)
 );
 router.patch(
   "/:contactId/favorite",
+  authMiddleware,
   validation(schema.favoriteStatusSchema),
   ctrlWrapper(ctrl.favoriteStatusContact)
 );
