@@ -16,8 +16,15 @@ const signupLoginJoiSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
+const schemaVerifyEmail = Joi.object({
+  email: Joi.required().messages({
+    message: "Missing required field email",
+  }),
+});
+
 module.exports = {
   addContactSchema,
   favoriteStatusSchema,
   signupLoginJoiSchema,
+  schemaVerifyEmail
 };

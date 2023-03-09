@@ -9,7 +9,10 @@ const {
   ctrlWrapper,
   upload,
 } = require("../../middlewares");
-const { signupLoginJoiSchema } = require("../../models/joishemas");
+const {
+  signupLoginJoiSchema,
+  schemaVerifyEmail,
+} = require("../../models/joishemas");
 
 router.post("/signup", validation(signupLoginJoiSchema), ctrl.signup);
 
@@ -24,6 +27,14 @@ router.patch(
   authMiddleware,
   upload.single("avatar"),
   ctrlWrapper(ctrl.updateAvatar)
+);
+
+router.get("/verify/:verificationToken", ctrlWrapper(ctrl.veryfyEmail));
+
+router.post(
+  "/verify",
+  validation(schemaVerifyEmail),
+  ctrlWrapper(ctrl.resendEmail)
 );
 
 module.exports = router;
