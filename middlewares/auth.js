@@ -14,8 +14,8 @@ const authMiddleware = async (req, res, next) => {
 
     const { id } = jwt.verify(token, process.env.SECRET_KEY);
     const user = await User.findById(id);
-    if (!user || !user.token) {
-      return next(new Unauthorized("Not authorized!"));
+    if (!user || !user.verify || !user.token) {
+      return next(new Unauthorized("Email is wrong or not verify, or password is wrong!"));
     }
     req.user = user;
     next();
